@@ -1,4 +1,4 @@
-package junit.org.rapidpm.demo.jaxenter.blog0006.tableviewdemo;
+package org.rapidpm.demo.jaxenter.blog0006.tableviewdemo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,9 +25,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * Created by Sven Ruppert on 02.11.13.
+ * Created by Sven Ruppert on 01.11.13.
  */
-public class TableViewSerialDemo extends Application {
+public class TableViewParallelDemo extends Application {
 
 
     private static final int MAX_ELEMENTS = 1000000;
@@ -94,11 +93,6 @@ public class TableViewSerialDemo extends Application {
 
         table.getItems().addAll(list);
 
-
-
-
-
-
         //G*p=P*100 -> p=P*100/G
         final Consumer<? super CurrencyValue> action = v -> {
             final Double aDouble = Double.valueOf(tfUmrechnungsfaktor.getText());
@@ -115,19 +109,17 @@ public class TableViewSerialDemo extends Application {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                final ObservableList<CurrencyValue> tableItems = table.getItems();
-                for (final CurrencyValue v : tableItems) {
-                    final Double aDouble = Double.valueOf(tfUmrechnungsfaktor.getText());
-                    v.changeUmrechnungsFaktor(aDouble);
-                    v.addUSD(v.getEuro() * v.getUmrechnungsfaktor());
-                    v.addPerc(v.getDollar() * 100 / v.getEuro());
-                }
+                final long start = System.nanoTime();
+                table.getItems().parallelStream().forEach(action);
 
-
-                System.out.println("table.getItems().size() = " + tableItems.size());
+                final long stop = System.nanoTime();
+                System.out.println("dT [ms] = " + (stop - start)/1000/1000);
+                System.out.println("table.getItems().size() = " + table.getItems().size());
             }
         });
 
         stage.show();
     }
-};
+
+
+}

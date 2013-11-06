@@ -1,4 +1,4 @@
-package junit.org.rapidpm.demo.jaxenter.blog0006;
+package org.rapidpm.demo.jaxenter.blog0006;
 
 import java.util.List;
 import java.util.Random;
