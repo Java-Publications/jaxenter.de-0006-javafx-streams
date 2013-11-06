@@ -1,10 +1,9 @@
-package junit.org.rapidpm.demo.jaxenter.blog0006.tableviewdemo;
+package org.rapidpm.demo.jaxenter.blog0006.tableviewdemo;
 
 import java.util.Objects;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 /**
 * Created by Sven Ruppert on 01.11.13.
